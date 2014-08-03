@@ -1,0 +1,35 @@
+*.keystore
+
+# files for the dex VM
+*.dex
+
+# Java class files
+*.class
+
+# built native files (uncomment if using NDK)
+#*.instance
+#*.so
+
+# generated files
+bin/
+build/
+gen/
+
+# Local configuration file (sdk path, etc)
+local.properties
+
+# Mac OSuX clutter
+*.DS_Store
+
+# temp files
+*.*~
+
+# Gradle
+.gradle
+.gradle/
+
+# Intellij IDEA (see https://intellij-support.jetbrains.com/entries/23393067)
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/datasources.xml
+.idea/dataSources.ids
