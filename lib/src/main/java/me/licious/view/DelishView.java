@@ -80,7 +80,7 @@ public class DelishView extends ListView {
     private ParentBlocker blocker;
     private boolean reorderable = true;
 
-    private boolean activateOnDragHandle = false;
+    private int dragHandleId = 0;
     private boolean activateOnLongPress = true;
 
     private OnDropListener onDropListener;
@@ -132,6 +132,14 @@ public class DelishView extends ListView {
     }
 
 
+    public void setDragHandleId(int dragHandleId) {
+        this.dragHandleId = dragHandleId;
+    }
+
+    public void setActivateOnLongPress(boolean activateOnLongPress) {
+        this.activateOnLongPress = activateOnLongPress;
+    }
+
     @Override
     public void setAdapter(ListAdapter adapter) {
         this.adapter = adapter;
@@ -153,8 +161,8 @@ public class DelishView extends ListView {
         for(int i = 0; i < g.getChildCount(); i++) {
             View c = g.getChildAt(i);
             if(c.getLeft() <= x && c.getTop() <= y && c.getRight() > x && c.getBottom() > y) {
-                if(c.getId() == R.id.delish_drag_handle) { dragHandle = c; return getPositionForView(c); }
-                else if(c instanceof ViewGroup)          { return hitCheck((ViewGroup) c, x - c.getLeft(), y - c.getTop()); }
+                if(c.getId() == dragHandleId)   { dragHandle = c; return getPositionForView(c); }
+                else if(c instanceof ViewGroup) { return hitCheck((ViewGroup) c, x - c.getLeft(), y - c.getTop()); }
             }
         }
         return -1;
@@ -326,7 +334,7 @@ public class DelishView extends ListView {
             downT = System.currentTimeMillis();
             downX = (int) event.getX();
             downY = (int) event.getY();
-            if(activateOnDragHandle) {
+            if(dragHandleId > 0) {
                 sourcePosition = hitCheck(this, downX, downY);
                 if(sourcePosition != -1) {
                     dragHandle.setPressed(true);
